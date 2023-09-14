@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Authors Home Page</title>
+  </head>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <body>
+    <div style="display: flex; justify-content: center">
+      <center>
+        <img
+          src="/users.jpg"
+          width="120px"
+          height="100px"
+          alt="Image not found"
+          style="margin-left: 900px"
+        />
+      </center>
+      <button
+        style="
+          height: 30px;
+          border-radius: 30px;
+          padding: 0px 15px;
+          display: inline-block;
+          margin: 0px 500px;
+          margin-right: 250px;
+        "
+      >
+        <a href="/author/<%= author.author_id%>/settings" style="color: black">
+          Settings
+        </a>
+      </button>
+    </div>
+    <div>
+      <h1><center>Author: <%= author.author_username%></center></h1>
+      <h1>
+        <left>Author Page</left>
+      </h1>
+      <h1><left><%=author.blogmaintitle%></left></h1>
+    </div>
+
+    <div
+      style="display: flex; justify-content: space-between; align-items: center"
+    >
+      <h2><left><%=author.blogsubtitle%></left></h2>
+      <button style="height: 30px; border-radius: 30px; padding: 0px 15px">
+        <a href="/author/<%= author.author_id%>/new-draft" style="color: black">
+          + Create New Draft
+        </a>
+      </button>
+    </div>
+    <br />
+    <div>
+      <h1><left>Published Articles</left></h1>
+      <% articles.filter(article => article.publication_date !==
+      null).forEach(function(d){ %>
+      <div>
+        <p style="float: right">Published Date: <%= d.publication_date %></p>
+      </div>
+
+      <div
+        style="background-color: #f5ede1; border-radius: 10px; padding: 10px"
+      >
+        <h2>
+          <a
+            href="/reader/author/<%= d.author_id %>/article/<%= d.article_id %>"
+            style="color: black"
+            ><%= d.article_title %></a
+          >
+        </h2>
+        <h4><%= d.article_subtitle %></h4>
+        <h3 style="float: inherit; color: red">Likes: <%= d.liked %></h3>
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          "
+        >
+          <div>
+            <p>Created On: <%= d.created_at %></p>
+            <p>Last Modified: <%= d.updated_at %></p>
+          </div>
+          <div>
+            <button
+              style="
+                height: 30px;
+                border-radius: 30px;
+                padding: 0px 15px;
+                flex: right;
+              "
+            >
+              <a
+                href="/author/<%= d.author_id %>/<%= d.article_id %>/edit-article"
+                style="color: black"
+                >Edit</a
+              >
+            </button>
+
+            <button
+              style="
+                height: 30px;
+                border-radius: 30px;
+                padding: 0px 15px;
+                flex: right;
+              "
+              type="button"
+              onclick='(async function (){
+          await axios.delete("/articles/<%=d.article_id%>");
+          location.reload();})()'
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+      <br />
+      <% }) %>
+    </div>
+
+    <h1><left>Draft Articles</left></h1>
+
+    <% articles.filter(article => article.publication_date ==
+    null).forEach(function(d){ %>
+    <div style="background-color: #f5ede1; border-radius: 10px; padding: 10px">
+      <h2>
+        <a
+          href="/author/<%= d.author_id %>/<%= d.article_id %>/edit-article"
+          style="color: black"
+          ><%= d.article_title %></a
+        >
+      </h2>
+      <h4><%= d.article_subtitle %></h4>
+      <div
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        "
+      >
+        <p>Created On: <%= d.created_at %></p>
+        <div>
+          <button
+            style="height: 30px; border-radius: 30px; padding: 0px 15px"
+            type="button"
+            onclick='(async function () {
+            await axios.delete("/articles/<%=d.article_id%>");
+            location.reload();})()'
+          >
+            Delete
+          </button>
+          <button
+            style="height: 30px; border-radius: 30px; padding: 0px 15px"
+            onclick='(async function () {
+            await axios.put("/articles/<%=d.article_id%>", {publish:true});
+            location.reload();})()'
+          >
+            Publish
+          </button>
+        </div>
+      </div>
+    </div>
+    <br />
+    <% }) %>
+  </body>
+</html>

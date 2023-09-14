@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Edit Article</title>
+  </head>
+  <body style="background-color: #f5ede1;">
+    <div style="display: flex; justify-content: space-between; align-items: center">
+    <h1>Edit Article</h1>
+    <div>
+      <h2 style="padding: 0%; margin: 0%;">Created On: <%= article.created_at%></span></h2><br>
+      <h2 style="padding: 0%; margin: 0%;">Last Modified: <%= article.updated_at%></h2>
+    </div>
+  </div>
+    <form
+      method="POST"
+      action="/author/<%= author.author_id %>/<%= article.article_id %>/edit-article"
+    >
+    <div>
+      <label for="ArticleTitle">Article Title:</label>
+      <input
+        id="ArticleTitle"
+        type="text"
+        name="blogTitle"
+        value="<%=article.article_title%>"
+      /><br /><br />
+
+      <label for="ArticleSubtitle">Article Subtitle:</label>
+      <input
+        id="ArticleSubtitle"
+        type="text"
+        name="blogSubtitle"
+        value="<%= article.article_subtitle%>"
+      /><br /><br />
+
+      <label for="Article">Article:</label>
+      <input
+        id="Article"
+        name="articleContent"
+        style="width: 98%; height: 250px; margin: 10px;"
+        value="<%=article.article_paragraph%>"
+      ></input
+      ><br /><br /><br />
+    </div>
+      <input type="submit" value="Submit" />
+      <button
+        style="
+          height: 30px;
+          border-radius: 30px;
+          padding: 0px 15px;
+          margin: 0px 20px;
+        "
+      >
+        <a href="/author/<%= author.author_id%>/homepage" style="color: black">
+          Back to Home
+        </a>
+      </button>
+    
+    </form>
+
+    <br />
+  </body>
+</html>

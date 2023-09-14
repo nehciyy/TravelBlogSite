@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      input:invalid {
+        border: 2px dashed red;
+      }
+
+      input:invalid:required {
+        background-image: linear-gradient(to right, pink, lightgreen);
+      }
+
+      input:valid {
+        border: 2px solid black;
+      }
+      body {
+        background-color: #f5ede1;
+      }
+    </style>
+
+    <title>Settings</title>
+
+    <script>
+      const title = document.getElementById("title");
+      const subtitle = document.getElementById("subtitle");
+      const authorName = document.getElementById("authorName");
+      const form = document.getElementById("form");
+
+      title.addEventListener("input", (event) => {
+        if (title.validity.typeMismatch) {
+          title.setCustomValidity("I am expecting a title!");
+        } else {
+          title.setCustomValidity("");
+        }
+      });
+
+      subtitle.addEventListener("input", (event) => {
+        if (subtitle.validity.typeMismatch) {
+          subtitle.setCustomValidity("I am expecting a subtitle!");
+        } else {
+          subtitle.setCustomValidity("");
+        }
+      });
+
+      authorName.addEventListener("input", (event) => {
+        if (authorName.validity.typeMismatch) {
+          authorName.setCustomValidity("I am expecting your name!");
+        } else {
+          authorName.setCustomValidity("");
+        }
+      });
+
+      function validateForm() {
+        let x = document.forms["form"]["<%= author.blogmaintitle%>"].value;
+        let y = document.forms["form"]["<%= author.blogsubtitle%>"].value;
+        let z = document.forms["form"]["<%= author.author_username%>"].value;
+
+        if (x == "") {
+          alert("Fill is required!");
+          return false;
+        } else if (y == "") {
+          alert("Fill is required!");
+          return false;
+        } else if (z == "") {
+          alert("Fill is required!");
+          return false;
+        } else {
+          //window.location.href = "/author/<%= author.author_id%>/homepage";
+          return true;
+        }
+      }
+    </script>
+  </head>
+
+  <body>
+    <h1>Settings</h1>
+    <form
+      id="form"
+      method="POST"
+      action="/author/<%= author.author_id%>/settings"
+    >
+      <div>
+        <label for="Blog Title">Blog Title:</label>
+        <input
+          type="text"
+          id="title"
+          name="blogmaintitle"
+          value="<%= author.blogmaintitle%>"
+          required
+        />
+      </div>
+      <br />
+      <div>
+        <label for="subtitle">Subtitle:</label>
+        <input
+          type="text"
+          id="subtitle"
+          name="blogsubtitle"
+          value="<%= author.blogsubtitle%>"
+          required
+        />
+      </div>
+      <br />
+      <div>
+        <label for="author name">Author Name:</label>
+        <input
+          type="text"
+          id="authorName"
+          name="author_username"
+          value="<%= author.author_username%>"
+          required
+        />
+      </div>
+      <br />
+      <div style="display: flex; justify-content: left; align-items: center">
+        <button
+          id="submit"
+          type="submit"
+          value="Submit"
+          onclick="validateForm()"
+          style="height: 30px; border-radius: 30px; padding: 0px 15px"
+        >
+          Submit
+        </button>
+
+        <br />
+        <button
+          style="
+            height: 30px;
+            border-radius: 30px;
+            padding: 0px 15px;
+            margin: 0px 20px;
+          "
+        >
+          <a
+            href="/author/<%= author.author_id%>/homepage"
+            style="color: black"
+          >
+            Back to Home
+          </a>
+        </button>
+      </div>
+    </form>
+  </body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>New Draft Article</title>
+  </head>
+  <body style="background-color: #f5ede1">
+    <h1>Create New Draft Article</h1>
+    <form method="POST" action="/author/<%= author.author_id %>/new-draft">
+      <label for="ArticleTitle">Article Title:</label>
+      <input id="ArticleTitle" type="text" name="blogTitle" /><br /><br />
+
+      <label for="ArticleSubtitle">Article Subtitle:</label>
+      <input id="ArticleSubtitle" type="text" name="blogSubtitle" /><br /><br />
+
+      <label for="Article">Article:</label>
+      <textarea
+        id="Article"
+        name="articleContent"
+        style="width: 98%; height: 250px; margin: 10px"
+      ></textarea
+      ><br /><br /><br />
+
+      <input type="submit" value="Save Draft" />
+      <button
+        style="
+          height: 30px;
+          border-radius: 30px;
+          padding: 0px 15px;
+          margin: 0px 20px;
+        "
+      >
+        <a href="/author/<%= author.author_id%>/homepage" style="color: black">
+          Back to Home
+        </a>
+      </button>
+    </form>
+
+    <br />
+  </body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Reader Article Page</title>
+  </head>
+  <body style="background-color: #f5ede1">
+    <div style="display: flex; justify-content: space-between">
+      <div>
+        <h1><%= article.article_title %></h1>
+        <h2><%= article.article_subtitle %></h2>
+      </div>
+
+      <div>
+        <h2>Publication Date: <%= article.publication_date %></h2>
+        <h3 style="float: inherit; color: red">Likes: <%= article.liked %></h3>
+
+        <div>
+          <form name="likeForm" id="likeForm" method="post">
+            <button type="submit">Like</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: flex; justify-content: space-between">
+      <div
+        style="flex: 1; width: 300%; padding-right: 0px; margin-right: 200px"
+      >
+        <p style="font-size: larger"><%= article.article_paragraph %></p>
+      </div>
+
+      <div
+        style="
+          flex: 1;
+          width: 1000px;
+          margin-left: 200px;
+          flex-grow: 1;
+          padding-right: 0px;
+        "
+      >
+        <div
+          style="
+            width: 50%;
+            height: 50px;
+            padding-left: 130px;
+            margin-right: 0px;
+          "
+        >
+          <h2>Comment Here!</h2>
+        </div>
+
+        <form
+          name="commentForm"
+          id="commentForm"
+          action="/reader/author/<%= author.author_id %>/article/<%= article.article_id %>/comment"
+          method="post"
+          style="
+            width: 80%;
+            height: 100px;
+            padding-left: 130px;
+            margin-right: 0px;
+          "
+        >
+          <textarea
+            type="text"
+            name="comment"
+            placeholder="Enter your comment..."
+            style="width: 90%; height: 100px"
+            required
+          ></textarea>
+          <br />
+
+          <button type="submit">Submit Comment</button>
+        </form>
+      </div>
+    </div>
+
+    <div style="width: 100%; padding-right: 90px">
+      <h2>Comments:</h2>
+      <% comments.forEach(function(d) { %>
+      <div
+        style="background-color: #bde4ff; border-radius: 10px; padding: 10px"
+      >
+        <p><%= d.comment_text %></p>
+        <h4><%= d.created_at%></h4>
+      </div>
+      <br />
+      <% }); %>
+    </div>
+
+    <br /><br />
+    <button
+      style="
+        height: 30px;
+        border-radius: 30px;
+        padding: 0px 15px;
+        margin: 0px 20px;
+        margin-left: 0%;
+      "
+    >
+      <a href="/reader/<%=author.author_id%>/homepage" style="color: black"
+        >Back to Reader - Home Page</a
+      >
+    </button>
+  </body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Reader Home Page</title>
+  </head>
+  <body>
+    <div style="display: flex; justify-content: space-between">
+      <div>
+        <h1><%= author.blogmaintitle %></h1>
+        <h2><%= author.blogsubtitle %></h2>
+      </div>
+      <h1>Author: <%= author.author_username%></h1>
+    </div>
+    <div>
+      <h1>Published Articles</h1>
+
+      <% articles.forEach(function(d){ %>
+      <div
+        style="
+          display: flex;
+          justify-content: space-between;
+          background-color: #f5ede1;
+          border-radius: 10px;
+          padding: 10px;
+        "
+      >
+        <div>
+          <h2>
+            <a
+              href="/reader/author/<%= d.author_id %>/article/<%= d.article_id %>"
+              style="color: black"
+            >
+              <%= d.article_title %>
+            </a>
+          </h2>
+
+          <h4><%= d.article_subtitle %></h4>
+          <br /><br />
+        </div>
+        <div>
+          <h3><span><%=d.publication_date %></span></h3>
+        </div>
+      </div>
+      <br />
+      <% }); %>
+    </div>
+  </body>
+</html>
